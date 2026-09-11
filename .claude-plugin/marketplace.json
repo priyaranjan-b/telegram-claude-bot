@@ -1,0 +1,14 @@
+{
+  "name": "telegram-ops",
+  "owner": {
+    "name": "Priyaranjan Behera"
+  },
+  "description": "Telegram notifications and remote approve/deny for Claude Code sessions",
+  "plugins": [
+    {
+      "name": "telegram-claude-bot",
+      "source": ".",
+      "description": "Telegram notifications and remote approve/deny for Claude Code sessions"
+    }
+  ]
+}

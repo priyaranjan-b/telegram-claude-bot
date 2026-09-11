@@ -1,0 +1,26 @@
+{
+  "name": "telegram-claude-bot",
+  "displayName": "Telegram Ops",
+  "description": "Telegram notifications and remote approve/deny for Claude Code sessions",
+  "version": "1.0.0",
+  "author": {
+    "name": "Priyaranjan Behera"
+  },
+  "homepage": "https://github.com/your-org/telegram-claude-bot",
+  "userConfig": {
+    "telegram_bot_token": {
+      "type": "string",
+      "title": "Telegram Bot Token",
+      "description": "API token from @BotFather for your own Telegram bot (see README for how to create one)",
+      "sensitive": true,
+      "required": true
+    },
+    "telegram_chat_id": {
+      "type": "string",
+      "title": "Telegram Chat ID",
+      "description": "Your numeric chat ID with the bot (see README for how to find it)",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}

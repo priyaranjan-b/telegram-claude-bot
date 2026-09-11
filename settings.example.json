@@ -1,0 +1,83 @@
+{
+  "env": {
+    "TELEGRAM_BOT_TOKEN": "<your-bot-token-from-BotFather>",
+    "TELEGRAM_CHAT_ID": "<your-chat-id>"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:/Users/<you>/.claude/hooks/telegram-stop.js\"",
+            "timeout": 15,
+            "statusMessage": "Notifying Telegram..."
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:/Users/<you>/.claude/hooks/telegram-notify.js\"",
+            "timeout": 15,
+            "statusMessage": "Notifying Telegram..."
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:/Users/<you>/.claude/hooks/telegram-sessionstart.js\"",
+            "timeout": 15,
+            "statusMessage": "Notifying Telegram..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Edit|Write|NotebookEdit|ExitPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:/Users/<you>/.claude/hooks/telegram-approve.js\"",
+            "timeout": 270,
+            "statusMessage": "Checking permission..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:/Users/<you>/.claude/hooks/telegram-postrun.js\"",
+            "timeout": 15,
+            "statusMessage": "Notifying Telegram..."
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:/Users/<you>/.claude/hooks/telegram-postrun.js\"",
+            "timeout": 15,
+            "statusMessage": "Notifying Telegram..."
+          }
+        ]
+      }
+    ]
+  }
+}

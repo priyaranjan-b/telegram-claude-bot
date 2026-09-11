@@ -1,0 +1,17 @@
+# Runtime state — never commit these, they're per-machine and not source.
+# Normally these live in the plugin data dir (${CLAUDE_PLUGIN_DATA}, outside
+# this repo entirely), but scripts/ is the fallback location for standalone
+# / local-testing use without TELEGRAM_OPS_DATA_DIR set.
+scripts/state.json
+scripts/listener.pid
+scripts/listener-heartbeat.json
+scripts/telegram-approve.log
+scripts/telegram-approve.log.1
+scripts/telegram-listener-output.log
+scripts/pending/
+
+# Never commit real credentials
+settings.json
+
+# Personal, per-machine Claude Code settings — not shared/team config
+.claude/settings.local.json

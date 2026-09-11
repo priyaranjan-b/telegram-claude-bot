@@ -1,0 +1,110 @@
+{
+  "description": "Telegram notification and remote-approval hooks",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/telegram-stop.js"],
+            "timeout": 15,
+            "statusMessage": "Notifying Telegram...",
+            "env": {
+              "TELEGRAM_BOT_TOKEN": "$CLAUDE_PLUGIN_OPTION_TELEGRAM_BOT_TOKEN",
+              "TELEGRAM_CHAT_ID": "$CLAUDE_PLUGIN_OPTION_TELEGRAM_CHAT_ID"
+            }
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/telegram-notify.js"],
+            "timeout": 15,
+            "statusMessage": "Notifying Telegram...",
+            "env": {
+              "TELEGRAM_BOT_TOKEN": "$CLAUDE_PLUGIN_OPTION_TELEGRAM_BOT_TOKEN",
+              "TELEGRAM_CHAT_ID": "$CLAUDE_PLUGIN_OPTION_TELEGRAM_CHAT_ID"
+            }
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Edit|Write|NotebookEdit|ExitPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/telegram-approve.js"],
+            "timeout": 270,
+            "statusMessage": "Checking permission...",
+            "env": {
+              "TELEGRAM_BOT_TOKEN": "$CLAUDE_PLUGIN_OPTION_TELEGRAM_BOT_TOKEN",
+              "TELEGRAM_CHAT_ID": "$CLAUDE_PLUGIN_OPTION_TELEGRAM_CHAT_ID"
+            }
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/telegram-sessionstart.js"],
+            "timeout": 15,
+            "statusMessage": "Notifying Telegram...",
+            "env": {
+              "TELEGRAM_BOT_TOKEN": "$CLAUDE_PLUGIN_OPTION_TELEGRAM_BOT_TOKEN",
+              "TELEGRAM_CHAT_ID": "$CLAUDE_PLUGIN_OPTION_TELEGRAM_CHAT_ID"
+            }
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/telegram-postrun.js"],
+            "timeout": 15,
+            "statusMessage": "Notifying Telegram...",
+            "env": {
+              "TELEGRAM_BOT_TOKEN": "$CLAUDE_PLUGIN_OPTION_TELEGRAM_BOT_TOKEN",
+              "TELEGRAM_CHAT_ID": "$CLAUDE_PLUGIN_OPTION_TELEGRAM_CHAT_ID"
+            }
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/telegram-postrun.js"],
+            "timeout": 15,
+            "statusMessage": "Notifying Telegram...",
+            "env": {
+              "TELEGRAM_BOT_TOKEN": "$CLAUDE_PLUGIN_OPTION_TELEGRAM_BOT_TOKEN",
+              "TELEGRAM_CHAT_ID": "$CLAUDE_PLUGIN_OPTION_TELEGRAM_CHAT_ID"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
