@@ -209,9 +209,10 @@ shell profile edits, no plaintext `settings.json` token.
 
 In a Claude Code session:
 ```
-/plugin marketplace add <path-or-git-url-to-this-repo>
-/plugin install telegram-claude-bot@telegram-ops
+/plugin marketplace add priyaranjan-b/telegram-claude-bot
+/plugin install telegram-claude-bot@cc-plugins
 ```
+(Testing a local clone instead? `/plugin marketplace add /path/to/telegram-claude-bot` works the same way.)
 You'll be prompted for your bot token and chat ID at install time (masked
 input, stored in secure storage rather than a settings file).
 
@@ -228,9 +229,9 @@ update offset is global per bot token, that risks one request seeing (and
 consuming) the reply meant for another. Use the **Full setup** above if you
 actually want to use remote mode.
 
-To update: `/plugin marketplace update telegram-ops` refreshes the catalog;
-to remove: `/plugin uninstall telegram-claude-bot@telegram-ops` and
-`/plugin marketplace remove telegram-ops`.
+To update: `/plugin marketplace update cc-plugins` refreshes the catalog;
+to remove: `/plugin uninstall telegram-claude-bot@cc-plugins` and
+`/plugin marketplace remove cc-plugins`.
 
 ---
 

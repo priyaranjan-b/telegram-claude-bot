@@ -144,8 +144,9 @@ user-facing setup guide (what this project is, how to install it, commands).
 - [x] Pushed to GitHub: `https://github.com/priyaranjan-b/telegram-claude-bot`
       (`main` branch, initial commit `c07b990`). `plugin.json`'s `homepage`
       now points at the real repo.
-- [ ] `tg-code` → native plugin slash commands (`/telegram-ops:mode local`
-      etc.) not done — would remove the need for colleagues to hand-edit
+- [ ] `tg-code` → native plugin slash commands (`/telegram-claude-bot:mode
+      local` etc. — namespaced by the plugin name, not the marketplace name)
+      not done — would remove the need for colleagues to hand-edit
       their shell profile at all, but doesn't solve the deeper
       credential/data-dir gap described below on its own. Discussed as a
       goal, not started.
