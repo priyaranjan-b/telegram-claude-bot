@@ -94,14 +94,14 @@ There are two ways to set this up. **Pick one — don't do both**, since
 running the same hooks twice (once from each install) would double up
 Telegram messages and fight over the same mode/state.
 
-| | Full setup (recommended) | Lightweight plugin install |
+| | Lightweight plugin install | Full setup (recommended) |
 |---|---|---|
 | Stop / Notification pings | ✅ | ✅ |
 | Silent pass-through for already-allowed actions | ✅ | ✅ |
-| Remote-approval mode (YES/NO buttons) | ✅ | Partial — see caveat below |
-| `tg-code` shell shortcut (mode switch, listener control) | ✅ | ❌ not available |
-| Secrets stored | Plaintext in your global `settings.json` | Securely, by Claude Code |
-| Setup effort | A few manual edits | Two slash commands |
+| Remote-approval mode (YES/NO buttons) | Partial — see caveat below | ✅ |
+| `tg-code` shell shortcut (mode switch, listener control) | ❌ not available | ✅ |
+| Secrets stored | Securely, by Claude Code | Plaintext in your global `settings.json` |
+| Setup effort | Two slash commands | A few manual edits |
 
 The **plugin install** is genuinely lighter-weight, but `tg-code` and the
 background listener are separate standalone processes that Claude Code
@@ -112,7 +112,39 @@ If you want the full feature set, use the **Full setup**.
 
 ---
 
-## 3a. Full setup (recommended)
+## 3a. Lightweight plugin install (optional, hooks-only)
+
+Gives you Stop/Notification pings and silent pass-through for already-allowed
+actions, with secrets entered once and stored securely by Claude Code — no
+shell profile edits, no plaintext `settings.json` token.
+
+In a Claude Code session:
+```
+/plugin marketplace add priyaranjan-b/telegram-claude-bot
+/plugin install telegram-claude-bot@cc-plugins
+```
+(Testing a local clone instead? `/plugin marketplace add /path/to/telegram-claude-bot` works the same way.)
+You'll be prompted for your bot token and chat ID at install time (masked
+input, stored in secure storage rather than a settings file).
+
+**What you get:** Stop/Notification pings, and the `PreToolUse` hook silently
+approving anything your existing `permissions.allow` rules already cover.
+
+**What you don't get:** `tg-code` and the background listener aren't part of
+the plugin — those are standalone scripts Claude Code doesn't hand plugin
+secrets or install paths to. Remote-approval mode *can* still be triggered by
+texting `/remote` straight to your bot (the hook checks for that on every
+tool call), but without the listener you lose instant `/status` replies, and
+concurrent tool calls each poll Telegram independently — since Telegram's
+update offset is global per bot token, that risks one request seeing (and
+consuming) the reply meant for another. Use the **Full setup** below if you
+actually want to use remote mode.
+
+To update: `/plugin marketplace update cc-plugins` refreshes the catalog;
+to remove: `/plugin uninstall telegram-claude-bot@cc-plugins` and
+`/plugin marketplace remove cc-plugins`.
+
+## 3b. Full setup (recommended)
 
 Requires [Node.js](https://nodejs.org) (18+; anything with built-in `fetch`
 works) on your machine — no npm packages needed, everything here is
@@ -126,7 +158,7 @@ The examples below use:
 - **macOS/Linux**: `~/.claude/hooks/`
 
 You only need the contents of `scripts/` (not `hooks/`, which is the plugin
-manifest used only by the lightweight install below):
+manifest used only by the lightweight install above):
 
 ```
 scripts/
@@ -201,43 +233,11 @@ tg-code mode local
 ```
 Switches back to normal local-only prompts (and stops the listener).
 
-## 3b. Lightweight plugin install (optional, hooks-only)
-
-Gives you Stop/Notification pings and silent pass-through for already-allowed
-actions, with secrets entered once and stored securely by Claude Code — no
-shell profile edits, no plaintext `settings.json` token.
-
-In a Claude Code session:
-```
-/plugin marketplace add priyaranjan-b/telegram-claude-bot
-/plugin install telegram-claude-bot@cc-plugins
-```
-(Testing a local clone instead? `/plugin marketplace add /path/to/telegram-claude-bot` works the same way.)
-You'll be prompted for your bot token and chat ID at install time (masked
-input, stored in secure storage rather than a settings file).
-
-**What you get:** Stop/Notification pings, and the `PreToolUse` hook silently
-approving anything your existing `permissions.allow` rules already cover.
-
-**What you don't get:** `tg-code` and the background listener aren't part of
-the plugin — those are standalone scripts Claude Code doesn't hand plugin
-secrets or install paths to. Remote-approval mode *can* still be triggered by
-texting `/remote` straight to your bot (the hook checks for that on every
-tool call), but without the listener you lose instant `/status` replies, and
-concurrent tool calls each poll Telegram independently — since Telegram's
-update offset is global per bot token, that risks one request seeing (and
-consuming) the reply meant for another. Use the **Full setup** above if you
-actually want to use remote mode.
-
-To update: `/plugin marketplace update cc-plugins` refreshes the catalog;
-to remove: `/plugin uninstall telegram-claude-bot@cc-plugins` and
-`/plugin marketplace remove cc-plugins`.
-
 ---
 
 ## Commands
 
-`tg-code` is only available with the Full setup (3a).
+`tg-code` is only available with the Full setup (3b).
 
 | Command | Does |
 |---|---|
@@ -360,7 +360,7 @@ text, per the privacy note above.
   exhaustively-verified handling. A mismatch always fails toward *more*
   prompts, never a silent bypass.
 - The lightweight plugin install doesn't include `tg-code` or the listener
-  (see [3b](#3b-lightweight-plugin-install-optional-hooks-only)) — use the
+  (see [3a](#3a-lightweight-plugin-install-optional-hooks-only)) — use the
   Full setup if you want the complete remote-approval experience.
 - **Plan Mode approval is not a live chat.** Claude Code's hook system has no
   way to inject a message mid-turn or intercept Claude's own text as it's
