@@ -6,7 +6,7 @@
   "author": {
     "name": "Priyaranjan Behera"
   },
-  "homepage": "https://github.com/your-org/telegram-claude-bot",
+  "homepage": "https://github.com/priyaranjan-b/telegram-claude-bot",
   "userConfig": {
     "telegram_bot_token": {
       "type": "string",

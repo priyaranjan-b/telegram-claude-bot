@@ -5,8 +5,10 @@ user-facing setup guide (what this project is, how to install it, commands).
 
 ## Current state (as of last session)
 
-- Repo initialized (`git init`) at `C:\personal\telegram-claude-bot`.
-  **No commits yet, nothing pushed, no GitHub remote added.**
+- Repo initialized (`git init`) at `C:\personal\telegram-claude-bot`, pushed
+  to `https://github.com/priyaranjan-b/telegram-claude-bot` (`main` branch).
+  Git identity for this repo is set locally (not global) — name from
+  `plugin.json`'s author field, email from the user's account context.
 - Restructured into a proper Claude Code **plugin** layout:
   ```
   .claude-plugin/plugin.json       manifest + userConfig (bot token, chat ID)
@@ -139,10 +141,9 @@ user-facing setup guide (what this project is, how to install it, commands).
 
 ## Outstanding / not yet done
 
-- [ ] No git commit or push yet; no GitHub remote configured.
-- [ ] `plugin.json`'s `homepage` field is still a placeholder
-      (`https://github.com/your-org/telegram-claude-bot`) — update once a
-      real repo exists.
+- [x] Pushed to GitHub: `https://github.com/priyaranjan-b/telegram-claude-bot`
+      (`main` branch, initial commit `c07b990`). `plugin.json`'s `homepage`
+      now points at the real repo.
 - [ ] `tg-code` → native plugin slash commands (`/telegram-ops:mode local`
       etc.) not done — would remove the need for colleagues to hand-edit
       their shell profile at all, but doesn't solve the deeper
